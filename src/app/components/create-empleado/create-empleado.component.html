@@ -3,7 +3,11 @@
         <div class="col-lg-8 offset-lg-2">
             <div class="card text-center">
                 <div class="card-body">
-                    <h3>Agregar Empleado</h3>
+                    <h3>Agregar Empleado
+                        <div *ngIf="loading" class="spinner-border text-info float-end" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </h3>
                     <span *ngIf="submitted && createEmployee.invalid" class="badge bg-danger mb-3">** Todos los campos son obligatorios</span>
                     <form [formGroup]="createEmployee" (ngSubmit)="addEmployee()">
                         <div class="row">

@@ -12,6 +12,8 @@ import { EmpleadoService } from 'src/app/services/empleado.service';
 export class CreateEmpleadoComponent implements OnInit {
   createEmployee: FormGroup;
   submitted = false;
+  // Variable de carga 
+  loading = false;
 
   constructor(private fb: FormBuilder,
               private _employeeService: EmpleadoService,
@@ -43,19 +45,22 @@ export class CreateEmpleadoComponent implements OnInit {
       createDate: new Date(),
       updateDate: new Date()
     }
+    this.loading = true;
     //Imprime el formulario en consola
-    console.log(this.createEmployee)
-    console.log(employee)
+    //console.log(this.createEmployee)
+    //console.log(employee)
 
     this._employeeService.addEmployee(employee).then( () => {
       //console.log("Empleado registrado con exito!");
       this.toastr.success('Empleado registrado con exito!', 'Empleado registrado', {
         positionClass: 'toast-bottom-right'
       });
+      this.loading = false;
       // Redirecciona al componente de listar empleados
       this.router.navigate(['/list-empleados'])
     }).catch(error =>{
       console.log(error);
+      this.loading = false;
     })
 
   }
