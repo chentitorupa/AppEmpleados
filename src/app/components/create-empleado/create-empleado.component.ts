@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { EmpleadoService } from 'src/app/services/empleado.service';
 
 @Component({
   selector: 'app-create-empleado',
@@ -10,7 +12,9 @@ export class CreateEmpleadoComponent implements OnInit {
   createEmployee: FormGroup;
   submitted = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private _employeeService: EmpleadoService,
+              private router: Router) {
     this.createEmployee = this.fb.group({
       name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -40,5 +44,14 @@ export class CreateEmpleadoComponent implements OnInit {
     //Imprime el formulario en consola
     console.log(this.createEmployee)
     console.log(employee)
+
+    this._employeeService.addEmployee(employee).then( () => {
+      console.log("Empleado registrado con exito!");
+      // Redirecciona al componente de listar empleados
+      this.router.navigate(['/list-empleados'])
+    }).catch(error =>{
+      console.log(error);
+    })
+
   }
 }
