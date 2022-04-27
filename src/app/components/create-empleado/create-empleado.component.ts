@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class CreateEmpleadoComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private _employeeService: EmpleadoService,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastrService) {
     this.createEmployee = this.fb.group({
       name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -46,7 +48,10 @@ export class CreateEmpleadoComponent implements OnInit {
     console.log(employee)
 
     this._employeeService.addEmployee(employee).then( () => {
-      console.log("Empleado registrado con exito!");
+      //console.log("Empleado registrado con exito!");
+      this.toastr.success('Empleado registrado con exito!', 'Empleado registrado', {
+        positionClass: 'toast-bottom-right'
+      });
       // Redirecciona al componente de listar empleados
       this.router.navigate(['/list-empleados'])
     }).catch(error =>{
