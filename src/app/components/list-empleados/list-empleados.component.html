@@ -3,7 +3,8 @@
         <div class="card-body">
             <span class="h3">Listado de Empleados</span>
             <button class="btn btn-primary btn-lg float-end" routerLink="/create-empleado" routerLinkActive="active">Agregar</button>
-            <table class="table mt-5 table-striped">
+            <h5 class="mt-3" *ngIf="employees.length == 0">No hay datos para mostrar</h5>
+            <table *ngIf="employees.length > 0" class="table mt-5 table-striped">
                 <thead class="table-info">
                     <tr>
                         <th>Nombre</th>
@@ -14,34 +15,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Melanie</td>
-                        <td>Ruiz</td>
-                        <td>33335555</td>
-                        <td>$250000</td>
+                    <tr *ngFor="let employee of employees">
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.last_name }}</td>
+                        <td>{{ employee.document }}</td>
+                        <td>${{ employee.salary }}</td>
                         <td>
                             <i class="fa-solid fa-pen-to-square fa-xl text-info me-3"></i>
-                            <i class="fa-solid fa-trash-can fa-xl text-danger"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Melanie</td>
-                        <td>Ruiz</td>
-                        <td>33335555</td>
-                        <td>$250000</td>
-                        <td>
-                            <i class="fa-solid fa-pen-to-square fa-xl text-info me-3"></i>
-                            <i class="fa-solid fa-trash-can fa-xl text-danger"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Melanie</td>
-                        <td>Ruiz</td>
-                        <td>33335555</td>
-                        <td>$250000</td>
-                        <td>
-                            <i class="fa-solid fa-pen-to-square fa-xl text-info me-3"></i>
-                            <i class="fa-solid fa-trash-can fa-xl text-danger"></i>
+                            <i (click)="deleteEmployee(employee.id)" class="fa-solid fa-trash-can fa-xl text-danger"></i>
                         </td>
                     </tr>
                 </tbody>
