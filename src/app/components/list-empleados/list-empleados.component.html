@@ -21,7 +21,7 @@
                         <td>{{ employee.document }}</td>
                         <td>${{ employee.salary }}</td>
                         <td>
-                            <i class="fa-solid fa-pen-to-square fa-xl text-info me-3"></i>
+                            <i [routerLink]="['/edit-employee/',employee.id]" class="fa-solid fa-pen-to-square fa-xl text-info me-3"></i>
                             <i (click)="deleteEmployee(employee.id)" class="fa-solid fa-trash-can fa-xl text-danger"></i>
                         </td>
                     </tr>

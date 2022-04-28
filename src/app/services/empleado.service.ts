@@ -20,6 +20,15 @@ export class EmpleadoService {
      return this.firestore.collection('employees', ref => ref.orderBy('createDate', 'desc')).snapshotChanges();
    }
 
+   // Obtenemos la peticion a firestore de los datos del empleado a editar
+   getEmployee(id: string): Observable<any>{
+     return this.firestore.collection('employees').doc(id).snapshotChanges();
+   }
+
+   updateEmployee(id: string, data: any): Promise<any>{
+    return this.firestore.collection('employees').doc(id).update(data);
+   }
+
    // Eliminar empleado por id
   deleteEmployee(id: string): Promise<any>{
     return this.firestore.collection('employees').doc(id).delete();
